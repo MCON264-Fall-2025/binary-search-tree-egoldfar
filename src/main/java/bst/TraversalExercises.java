@@ -79,15 +79,21 @@ public class TraversalExercises {
             return result;
         }
         Queue<TreeNode<T>> queue = new LinkedList<>();
-        queue.offer(root);
+        if (!queue.offer(root)) {
+            throw new IllegalStateException("Failed to add root to queue");
+        }
         while (!queue.isEmpty()) {
             TreeNode<T> node = queue.poll();
             result.add(node.value);
             if (node.left != null) {
-                queue.offer(node.left);
+                if (!queue.offer(node.left)) {
+                    throw new IllegalStateException("Failed to add left child to queue");
+                }
             }
             if (node.right != null) {
-                queue.offer(node.right);
+                if (!queue.offer(node.right)) {
+                    throw new IllegalStateException("Failed to add right child to queue");
+                }
             }
         }
         return result;
